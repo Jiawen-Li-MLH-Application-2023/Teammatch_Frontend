@@ -1,0 +1,77 @@
+<p>home works!</p>
+<br>
+<div class="home">
+  <div *ngIf="isLoggedIn">
+    <h1>Welcome to Teammatcher!</h1>
+    <p>Hello {{this.user.first_name}}! It's your time to find your teammates!</p>
+    <br>
+    <p><button class="button" (click)="logOut()">Sign Out</button></p>
+  </div>
+  <div *ngIf="notLoggedIn">
+    <h1>Find Your Team!</h1>
+    <p>Get registered and find yourself teammates for your courses!</p>
+    <p><button class="button" [routerLink]="['/about']">Know More About It</button></p>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Example row of columns -->
+  <div  *ngIf="isLoggedIn">
+    <div class="row">
+      <div class="column">
+        <div class="row card">
+          <h2>Courses</h2>
+          <p class="brief_description">Course System</p>
+          <p>It's your turn to find courses and choose preferences!</p>
+          <p><button class="button" [routerLink]="['/courses']">Go to Courses page</button></p>
+          <br>
+        </div>
+        <div class="row card">
+          <h2>Teammates</h2>
+          <p class="brief_description">Team match System</p>
+          <p>Want to find a teammates? Go to our matching system and select a team!</p>
+          <p><button class="button" [routerLink]="['/team']">Go to Teammates page</button></p>
+          <br>
+        </div>
+      </div>
+      <div class="column">
+        <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+          <div class="card p-4">
+            <div class=" image d-flex flex-column justify-content-center align-items-center">
+              <button class="btn btn-secondary"> <img src="{{this.profile_img}}" height="100" width="100" /></button>
+              <span class="name mt-3">{{this.user.first_name + " " + this.user.last_name}}</span>
+              <span class="idd">{{" / " + this.user.uni}}</span>
+              <br>
+              <span class="idd">{{this.user.email}}</span>
+              <br>
+              <hr>
+              <div class="text mt-3">
+                <span>Major: {{this.user.major}}<br>
+                  Timezone: {{this.user.timezone}}<br>
+                  Self Description: {{this.user.msg}}
+                </span>
+              </div>
+              <br>
+              <div class=" d-flex mt-2">
+                <button class="btn1 btn-dark" [routerLink]="['/profile']">Edit Profile</button>
+              </div>
+              <br>
+              <div class=" px-2 rounded mt-4 date ">
+                <span class="join">It's nice to have you joined the system!</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="notLoggedIn" class="register card">
+    <br>
+      <h2>Registration</h2>
+      <img src="../../assets/account.png">
+      <p class="brief_description">Log Into Your Account!</p>
+      <p>We notice that you haven't logged in! Go to account page and start your journey!</p>
+      <p><button class="button" (click)="toAccount()">Go To Account Page</button></p>
+    <br>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<p>placeholder for navbar</p>
+<div class="login-page">
+  <form class="form" id="profile-form">
+    <h1>Welcome {{this.first_name}}, please update your profile!</h1>
+    <app-messages></app-messages>
+    <div class="form-group form-inline">
+      <label for="uni">UNI</label>
+      <span id="uni">{{this.uni}}</span>
+    </div>
+    <div class="form-group form-inline">
+      <label for="timezone">TIMEZONE</label>
+      <select name="singleSelect" id="timezone" [(ngModel)]="this.timezone">
+        <option selected value="est">Eastern EST</option>
+        <option value="cst">Central CST</option>
+        <option value="pst">Pacific PST</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div class="form-group form-inline">
+      <label for="major">MAJOR</label>
+      <select name="singleSelect" id="major" [(ngModel)]="this.major">
+        <option selected value="na">Prefer Not to Say</option>
+        <option value="cs">Computer Science</option>
+        <option value="stats">Statistics</option>
+        <option value="ee">Electrical Engineering</option>
+        <option value="ds">Data Science</option>
+        <option value="math">Mathematics</option>
+      </select>
+    </div>
+    <div class="form-group form-inline">
+      <label for="gender">GENDER</label>
+      <select name="select" id="gender" [(ngModel)]="this.gender">
+        <option selected value="na">Prefer Not to Say</option>
+        <option value="f">Female</option>
+        <option value="m">Male</option>
+      </select>
+    </div>
+    <div class="form-group form-inline">
+      <label for="message">PERSONAL MESSAGE</label>
+      <input id="message" name="input" type="text" placeholder="{{this.msg}}" [(ngModel)]="this.msg">
+    </div>
+    <button (click)="updateProfile()">save</button>
+    <p class="message">
+      <a [routerLink]="['/home']">Go back to Home</a>
+    </p>
+  </form>
+</div>

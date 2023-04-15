@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card" style="width: 60rem">
+        <div class="card-header">
+          <div class="row">
+            <div class="col">
+              <h3>Course Information</h3>
+            </div>
+            <div class="col">
+            </div>
+          </div>
+        </div>
+        <div class="card-body">Some information about
+          Courses will go here!
+          <label>Type in an course's id: </label><input type="text" class="form-control"
+                                                        [(ngModel)]="Courseid">
+          <p></p>
+          <button type="button" (click)="onLookup()" class="btn btn-primary">Search</button>
+          <!-- You typed: <span *ngIf="artistName"> "{{ artistName }}" </span> -->
+          <p></p>
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Course Name</th>
+              <th scope="col">Department</th>
+              <th scope="col">Introduction</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let p of CourseInfo; index as i">
+              <td>
+                {{ p.id }}
+              </td>
+              <td>{{ p.name }}</td>
+              <td>{{ p.Department }}</td>
+              <td>{{ p.Introduction }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer">That was cool!</div>
+      </div>
+    </div>
+  </div>
+</div>

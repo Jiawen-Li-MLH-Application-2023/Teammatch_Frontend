@@ -1,0 +1,21 @@
+<ul>
+  <li><a id="home"  href="#">Home</a></li>
+  <li><a id="course" href="#">Courses</a></li>
+  <li><a id="teammates" href="#">Teammates</a></li>
+  <li style="float:right"><a [routerLinkActive]="['active']" id="about" href="/about">About</a></li>
+</ul>
+
+<ul class="nav navbar-nav">
+  <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+    <a [routerLink]="['/home']">Home</a>
+  </li>
+  <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+    <a [routerLink]="['/courses']">Courses</a>
+  </li>
+  <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+    <a [routerLink]="['/team']">My Teammates</a>
+  </li>
+  <li style = "float:right" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+    <a [routerLink]="['/about']">About</a>
+  </li>
+</ul>

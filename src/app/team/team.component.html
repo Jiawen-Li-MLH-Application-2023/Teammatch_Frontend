@@ -1,0 +1,233 @@
+<p></p> <br>
+<div class="login-page">
+    <div class="form">
+        <h1>Search Team from a Course!</h1>
+        <app-messages></app-messages>
+        <div>
+          <button style="width:30%; display:inline-block" [routerLink]="['/courses']">check course</button>
+          <button style="width:30%; display:inline-block" (click)="showContentSearch()">Search Teams</button>
+          <button style="width:30%; display:inline-block" (click)='showContent()'> Create Team</button></div> <br>
+        <div class="form-group form-inline" *ngIf='search_click'>
+            <label for="course_search">Course ID</label>
+            <input style="width:20%; display:inline-block" id="course_search" name = "input" type="text" [(ngModel)]="this.check_Course_id">
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button style="width:20%; display:inline-block" (click)='RetrieveAllTeam(this.check_Course_id)'> Search</button>
+            <div ng-controller="tableview">
+              <table class="table table-striped" >
+                <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Team ID</th>
+                  <th scope="col">Team_message</th>
+                  <th scope="col">Number Needed</th>
+                  <th scope="col">Captain Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let x of All_teams | paginate : {
+                    itemsPerPage: this.pageSize,
+                    currentPage: this.page,
+                    totalItems: this.count
+                  }">
+                  <td (click)="showTeam(this.check_Course_id, x.Team_Captain_Uni, x.Team_id)">
+                    {{ x.Team_Name }}
+                  </td>
+                  <td (click)="showTeam(this.check_Course_id, x.Team_Captain_Uni, x.Team_id)">{{ x.Team_id }}</td>
+                  <td (click)="showTeam(this.check_Course_id, x.Team_Captain_Uni, x.Team_id)">{{ x.Team_message }}</td>
+                  <td (click)="showTeam(this.check_Course_id, x.Team_Captain_Uni, x.Team_id)">{{ x.Number_needed }}</td>
+                  <td (click)="showTeam(this.check_Course_id, x.Team_Captain_Uni, x.Team_id)"f>{{ x.Team_Captain }}</td>
+                  <ng-container *ngIf="this.current_uni==x.Team_Captain_Uni; else optionA">
+                    <td>
+                      <ul class="list-inline m-0">
+                        <li class="list-inline-item">
+                          <button style="width:100%; display:inline-block"
+                                  class="btn btn-success btn-sm rounded-0"
+                                  type="button" data-toggle="tooltip" data-placement="top" title="Edit"
+                                  (click)="setEditForm(x.Team_id, x.Course_id, x.Team_Captain_Uni, x.Team_Name, x.Team_Captain, x.Number_needed, x.Team_Captain)">
+                            <i class="fa fa-edit"></i>
+                          </button>
+                        </li>
+                        <li class="list-inline-item">
+                          <button style="width:100%; display:inline-block"
+                                  class="btn btn-danger btn-sm rounded-0"
+                                  type="button" data-toggle="tooltip" data-placement="top" title="Delete"
+                                  (click)="DeleteTeam(x.Team_id, x.Course_id, x.Team_Captain_Uni,true)">
+                            <i class="fa fa-trash"></i>
+                          </button>
+                        </li>
+                      </ul>
+                    </td>
+                </ng-container>
+                <ng-template #optionA>
+                  <td> View Only</td>
+                </ng-template>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          <div *ngIf="this.All_teams!==[]">
+            <div class="col-md-12">
+              <pagination-controls
+                previousLabel="Prev"
+                nextLabel="Next"
+                [responsive]= "true"
+                (pageChange)="this.handlePageChange($event, this.check_Course_id)"
+              ></pagination-controls>
+            </div>
+
+            <div class="mt-3">
+              Course Preferencs per Page:
+              <select (change)="handlePageSizeChange($event, this.check_Course_id)">
+                <option *ngFor="let size of pageSizes" [ngValue]="size">
+                  {{ size }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+      <hr>
+      <div *ngIf="this.edited_team_id !== 0 && this.edited_Course_id !== 0 && edit_click==true">
+        <div class="form-group">
+        <p style="font-size: 20px;">Edit Preference <br></p>
+        Team ID: <span id="id_create1">{{this.edited_team_id}}</span> &nbsp;&nbsp;
+        Course ID: <span id="Course_id_create1">{{this.edited_Course_id}}</span> &nbsp;&nbsp;
+        Captain Uni: <span id="Captain_Uni_create1">{{this.edit_captain_uni}}</span>
+        </div>
+        <div class="form-group form-inline">
+          <label for="team_create1">Team Name</label>
+          <input id="team_create1" name = "input8" type="text" [(ngModel)]="this.edited_team_name">
+        </div>
+        <div class="form-group form-inline">
+          <label for="captain_create1">Team Captain</label>
+          <input id="captain_create1" name = "input9" type="text" [(ngModel)]="this.edited_team_captain">
+        </div>
+        <div class="form-group form-inline">
+          <label for="num_create1">Number Needed</label>
+          <input id="num_create1" name = "input10" type="text" [(ngModel)]="this.edited_number_needed">
+        </div>
+        <div class="form-group form-inline">
+          <label for="prefered_message_create1">Messages</label>
+          <input id="prefered_message_create1" name = "input10" type="text" [(ngModel)]="this.edited_team_messages">
+        </div>
+        <button (click)="EditPreference()">Modify Preference</button>
+        <hr>
+      </div>
+
+
+      <div class="form-group" *ngIf='add_click'>
+        <div class="form-group form-inline" >
+          <label for="course"> Course id &nbsp;&nbsp; </label>
+          <input id="course" name = "input1" type="text" [(ngModel)]="this.add_Course_id">
+        </div>
+        <div class="form-group form-inline">
+          <label for="team_create">Team Name &nbsp;&nbsp; </label>
+          <input id="team_create" name = "input2" type="text" [(ngModel)]="this.add_Team_Name">
+        </div>
+        <div class="form-group form-inline">
+            <label for="Captain">Captain Name &nbsp;&nbsp; </label>
+            <input id="Captain" name = "input5" type="text" [(ngModel)]="this.add_Team_Captain_Name">
+        </div>
+        <div class="form-group form-inline">
+            <label for="Captain Uni">Captain Uni &nbsp;&nbsp; </label>
+            <input id="Captain Uni" name = "input5" type="text" [(ngModel)]="this.add_Team_Captain_Uni">
+          </div>
+        <div class="form-group form-inline">
+            <label for="Number">Number Need &nbsp;&nbsp; </label>
+            <input id="Number" name = "input4" type="text" [(ngModel)]="this.add_Number_needed">
+          </div>
+        <div class="form-group form-inline">
+          <label for="message_create">Team Message &nbsp;&nbsp; </label>
+          <input id="message_create" name = "input3" type="text" [(ngModel)]="this.add_Team_message">
+        </div>
+        <button (click)="addteam()">Add Team</button> <br><br>
+      </div><br>
+
+      <div class="form-group" *ngIf='team_click'>
+        <div *ngFor="let x of Team_info">
+          <div style="text-align:right;">
+          <b>Course ID : </b>{{x.Course_id}}
+          <b>Team ID : </b>{{x.Team_id}}
+         </div>
+          <div style="text-align: left">
+          <b>Team Name: </b>{{x.Team_Name}} <br>
+          <b>Team Captain: </b>{{x.Team_Captain}} {{x.Team_Captain_Uni}} <br>
+          <b>Team Message: </b> <br>
+          &nbsp;&nbsp;{{x.Team_message}}
+        </div>
+        <table class="table table-striped" >
+          <thead>
+          <tr>
+            <th scope="col">Team Member</th>
+            <th scope="col">Team Memeber Uni</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let y of Team_member" style="text-align: left">
+            <td [routerLink]="['/preferences']"> {{y.Student_Name}}</td>
+            <td [routerLink]="['/preferences']">{{ y.Uni }}</td>
+            <ng-container *ngIf="this.current_uni==x.Team_Captain_Uni; else optionA">
+              <td>
+                <ul class="list-inline m-0">
+                  <li class="list-inline-item">
+                    <button style="width:100%; display:inline-block"
+                            class="btn btn-danger btn-sm rounded-0"
+                            type="button" data-toggle="tooltip" data-placement="top" title="Delete"
+                            (click)="delete_member(y.Uni, x.Course_id, x.Team_id)">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </li>
+                </ul>
+              </td>
+            </ng-container>
+            <ng-template #optionA>
+              <td> View Only</td>
+            </ng-template>
+          </tr>
+          </tbody>
+        </table>
+        <div>
+          <div ng-container *ngIf="this.current_uni==x.Team_Captain_Uni; else optionA">
+            <button style="width:30%; display:inline-block" (click)="showAddMmber()">Add Team Member</button>
+          </div>
+          <ng-template #optionA>
+            <td> Only Captain Add Memeber <br><br><br></td>
+          </ng-template>
+          <button style="width:30%; display:inline-block"(click)="find_my_teammate(x.Team_Captain_Uni, x.Course_id)">Match Classmates</button>
+           <br><br><br>
+        </div>
+        <div class="form-group" *ngIf='member_click'>
+          <div class="form-group form-inline" >
+            <label for="uni"> Student Uni &nbsp;&nbsp; </label>
+            <input id="uni" name = "input1" type="text" [(ngModel)]="this.add_Student_Uni">
+          </div>
+          <div class="form-group form-inline" >
+            <label for="student_name"> Student Name &nbsp;&nbsp; </label>
+            <input id="student_name" name = "input2" type="text" [(ngModel)]="this.add_Student_Name">
+          </div>
+          <button (click)="add_member(this.add_Student_Uni, this.add_Student_Name, x.Course_id, x.Team_id)">Add Member</button> <br><br>
+        </div>
+        <div>
+          <table class="table table-striped" >
+            <thead>
+            <tr>
+              <th scope="col">Uni</th>
+              <th scope="col">Timezone</th>
+              <th scope="col">Major</th>
+              <th scope="col">Personal Message</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let z of Find_My_Teammate" style="text-align: left">
+              <td> {{z.uni}}</td>
+              <td>{{z.timezone}}</td>
+              <td>{{z.major}}</td>
+              <td>{{z.personal_message}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        </div>
+
+</div>

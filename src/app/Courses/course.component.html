@@ -1,0 +1,52 @@
+<div class="login-page">
+  <div class="form">
+    <form id="register-form">
+      <h1>Modify Courses Database!</h1>
+      <app-messages></app-messages>
+      <h2>Add Courses</h2>
+      <div class="form-group form-inline">
+        <label for="course_create">Course Name</label>
+        <input id="course_create" name = "input" type="text" [(ngModel)]="this.Course_Name_add">
+      </div>
+      <div class="form-group form-inline">
+        <label for="department_create">Department</label>
+        <input id="department_create" name = "input2" type="text" [(ngModel)]="this.Department">
+      </div>
+      <div class="form-group form-inline">
+        <label for="Courseintroduction">Course introduction</label>
+        <input id="Courseintroduction" name = "input3" type="text" [(ngModel)]="this.CourseIntroduction">
+      </div>
+      <button (click)="AddCourse()">Add Course</button>
+      <h3>Check Courses</h3>
+      <div class="form-group form-inline">
+        <label for="course_name">Course Name</label>
+        <input id="course_name" name = "input4" type="text" [(ngModel)]="this.Course_Name_check">
+      </div>
+      <button (click)="CheckCourse()">Check Course Information</button>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">Course ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Department</th>
+          <th scope="col">Introduction</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let p of this.CourseInfo">
+          <td>{{ p.Course_id }}</td>
+          <td>
+            {{ p.Course_Name }}
+          </td>
+          <td>{{ p.Department }}</td>
+          <td>{{ p.CourseIntroduction }}</td>
+        </tr>
+        </tbody>
+      </table>
+      <p><button class="button1" style="background-color:#27682C" [routerLink]="['/preferences']">
+        Go to Preferences page
+      </button></p>
+
+
+
+

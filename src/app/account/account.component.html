@@ -1,0 +1,87 @@
+<body>
+<p>placeholder for navbar</p>
+<div class="login-page">
+  <div class="form">
+    <form id="register-form">
+      <h1>Welcome to join Teammatcher!</h1>
+      <app-messages></app-messages>
+      <div class="form-group form-inline">
+        <label for="uni_signup">UNI</label>
+        <input id="uni_signup" name = "input" type="text" [(ngModel)]="this.uni">
+      </div>
+      <div class="form-group form-inline">
+        <label for="first_signup">FIRST NAME</label>
+        <input id="first_signup" name="input" type="text" [(ngModel)]="this.first_name"/>
+      </div>
+      <div class="form-group form-inline">
+        <label for="middle_signup">MIDDLE NAME</label>
+        <input id="middle_signup" name="input" type="text" [(ngModel)]="this.middle_name"/>
+      </div>
+      <div class="form-group form-inline">
+        <label for="last_signup">LAST NAME</label>
+        <input id="last_signup" name="input" type="text" [(ngModel)]="this.last_name"/>
+      </div>
+      <div class="form-group form-inline">
+        <label for="pwd_signup">PASSWORD</label>
+        <input id="pwd_signup" name="input" type="password" [(ngModel)]="this.password"/>
+      </div>
+      <div [formGroup] = "user_email" class="form-group form-inline">
+        <label for="email_signup">EMAIL ADDRESS</label>
+        <input id="email_signup" name="input" type="email" class="form-control"
+               formControlName="primary_email"
+               [(ngModel)]="this.email_address"/>
+      </div>
+      <button (click)="createAccount()">create</button>
+      <p class="message">
+        Already registered? <a (click)="changeForm(false, true, false)">Sign In</a>
+      </p>
+    </form>
+    <form id="login-form">
+      <h1>Welcome to Teammatcher!</h1>
+      <app-messages></app-messages>
+      <button *ngIf="!this.accountService.verified"
+              style="background-color:#27682C"
+              [routerLink]="['/verification']">
+        Verify Account</button>
+      <div class="form-group form-inline">
+        <label for="uni_login">UNI</label>
+        <input id="uni_login" name = "input" type="text" [(ngModel)]="this.uni">
+      </div>
+      <div class="form-group form-inline">
+        <label for="pwd_login">PASSWORD</label>
+        <input id="pwd_login" name="input" type="password" [(ngModel)]="this.password"/>
+      </div>
+      <button (click)="logIntoAccount()">login</button>
+      <div id="buttonDiv">
+      </div>
+      <p class="message">
+        If Google-Login is not shown, please refresh the page! :)
+      </p>
+      <p class="message">
+        Not registered? <a (click)="changeForm(true, false, false)">Create an account</a>
+      </p>
+    </form>
+    <form id="update-account-form">
+      <h1>Welcome {{this.first_name}}, please update your personal account info!</h1>
+      <app-messages></app-messages>
+      <div [formGroup] = "user_email" class="form-group form-inline">
+        <label for="email">EMAIL ADDRESS</label>
+        <span id="email">{{this.email_address}}</span>
+      </div>
+      <div class="form-group form-inline">
+        <label for="uni_update">UNI</label>
+        <input id="uni_update" name = "input" type="text" [(ngModel)]="this.uni">
+      </div>
+      <div class="form-group form-inline">
+        <label for="password">PASSWORD</label>
+        <input id="password" name="input" type="password" [(ngModel)]="this.password"/>
+      </div>
+      <button (click)="updateAccount()">save</button>
+      <p class="message">
+        Log-in via other ways? <a (click)="stopUpdate()">Log in</a>
+      </p>
+    </form>
+  </div>
+</div>
+</body>
+

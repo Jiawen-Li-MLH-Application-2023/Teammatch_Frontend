@@ -1,0 +1,34 @@
+<p>placeholder for navbar</p>
+<div class="verification-page">
+  <div class="form">
+    <form id="verification-form">
+      <h1>Please verify your account!</h1>
+
+      <div class="row card">
+          <h4>
+            *** You should have received an email with an activation link to verify your account when you registered ***
+          </h4>
+          <h4>
+            If the link has expired, please fill in your uni and password to resend.
+          </h4>
+          <h4>
+            You can also
+            <a id="google-login" [routerLink]="['/account']">
+              Google Login
+            </a> to verify your account.
+          </h4>
+        </div>
+      <app-messages></app-messages>
+      <div class="form-group form-inline">
+        <label for="uni_signup">UNI</label>
+        <input id="uni_signup" name = "input" type="text" [(ngModel)]="this.uni">
+      </div>
+      <div class="form-group form-inline">
+        <label for="password">PASSWORD</label>
+        <input id="password" name="input" type="password" [(ngModel)]="this.password"/>
+      </div>
+      <button (click)="resend()">resend verification</button>
+      <p class="message">Go Back to <a [routerLink]="['/account']">Log In</a></p>
+    </form>
+  </div>
+</div>

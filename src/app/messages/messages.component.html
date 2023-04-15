@@ -1,0 +1,18 @@
+<div class = "container">
+  <div class="alert alert-success alert-dismissible fade in" *ngIf="messageService.type==='SUCCESS'">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Success!</strong> {{this.messageService.message}}
+  </div>
+  <div class="alert alert-info alert-dismissible fade in" *ngIf="messageService.type==='INFO'">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Info!</strong> {{this.messageService.message}}
+  </div>
+  <div class="alert alert-warning alert-dismissible fade in" *ngIf="messageService.type==='WARNING'">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Warning!</strong> {{this.messageService.message}}
+  </div>
+  <div class="alert alert-danger alert-dismissible fade in" *ngIf="messageService.type==='DANGER'">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Danger!</strong> {{this.messageService.message}}
+  </div>
+</div>
